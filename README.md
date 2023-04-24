@@ -12,7 +12,8 @@
     await Telegram.user(user_id).message(`Hello!`);
  ```
 3) How to use buttons?
- 3.1) Keyboard buttons
+ 
+ 3.1 Keyboard buttons
 ```typescript
     const button = Telegram.button('keyboard', {pageId: "Main", name: "Phone Number Get", layer: 0});
 ```
@@ -36,7 +37,8 @@
         await Telegram.user(id).messageWithData("hi", await Telegram.getKeyboardButtonPageById("Phone Number", true));
     });
 ```
- 3.2) Inline buttons
+ 
+ 3.2 Inline buttons
 ```typescript
     const button = Telegram.button('keyboard', {pageId: "Main", name: "Phone Number Get", layer: 0});
 ```
