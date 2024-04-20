@@ -1,6 +1,6 @@
 {
   "name": "telegram-ts-api",
-  "version": "1.0.3",
+  "version": "1.0.0",
   "description": "High level wrapper for node-telegram-bot-api",
   "main": "index.js",
   "keywords": [
@@ -11,6 +11,7 @@
     "telegram-typescript",
     "telegram-js",
     "telegram-javascript",
+    "telegram-bot",
     "node-telegram-bot-api",
     "tg-ts",
     "tg-js",

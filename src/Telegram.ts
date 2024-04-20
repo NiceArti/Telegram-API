@@ -10,8 +10,9 @@ interface ButtonProperties
     pageId?: string | number,
     layer?: number,
     roles?: string[],
-    request_contact?: boolean;
-    request_location?: boolean;
+    one_time_keyboard?: boolean,
+    request_contact?: boolean,
+    request_location?: boolean,
 }
 
 type KeyboardType = "keyboard" | "inline";

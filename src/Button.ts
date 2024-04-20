@@ -4,7 +4,13 @@ interface IButtonRequests {
     request_contact?: boolean,
     request_location?: boolean,
 }
-abstract class Button
+
+interface IButton
+{
+    click(fn: (msg: any) => void);
+}
+
+abstract class Button implements IButton
 {
     protected _telegram: TelegramBot;
     protected _name: string;
