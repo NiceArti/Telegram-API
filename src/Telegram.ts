@@ -13,6 +13,7 @@ interface ButtonProperties
     one_time_keyboard?: boolean,
     request_contact?: boolean,
     request_location?: boolean,
+    url?: string,
 }
 
 type KeyboardType = "keyboard" | "inline";
@@ -102,39 +103,23 @@ export default class Telegram
     // button properties
     public static button(type: KeyboardType = 'inline', properties?: ButtonProperties)
     {
-        // const uniqueName = (arr: any) => 
-        // {
-        //     // find on everywhere
-        //     let counter = 0;
-        //     for(let i = 0; i < arr.length; i++)
-        //     {
-        //         for(let j = 0; j < arr[i].length; j++)
-        //         {
-        //             for(let k = 0; k < arr[i][j].length; k++)
-        //             {
-        //                 if(arr[i][j].includes(name))
-        //                 {
-        //                     ++counter;
-        //                     const newName = name.split(' ', 2)
-        //                     name = newName[0] + ` (${counter})`
-        //                 }
-        //             }
-        //         }
-        //     }
-        // }
-
         if(properties === undefined) properties = {};
         if(properties.name === undefined) properties.name = 'Button';
         if(properties.callback === undefined) properties.callback = properties.name;
         if(properties.pageId === undefined) properties.pageId = 0;
         if(properties.layer === undefined) properties.layer = 0;
+        
+        let web_app = undefined;
+        if(properties.url) {
+            web_app = {
+                url: properties.url
+            }
+        }
 
         if(type === 'keyboard')
         {
             const button: KeyboardButton = new KeyboardButton(this._bot, properties.name);
-            console.log(button);
-            
-            this._addKeyboardButtons(properties.pageId, properties.layer, properties.name, properties.request_contact, properties.request_location);
+            this._addKeyboardButtons(properties.pageId, properties.layer, properties.name, properties.request_contact, properties.request_location, web_app);
             return button;
         }
         else if(type === 'inline')
@@ -165,7 +150,7 @@ export default class Telegram
         return {
             reply_markup: JSON.stringify({
                 one_time_keyboard: one_time_keyboard,
-                keyboard: this._keyboardButtons[page]
+                keyboard: this._keyboardButtons[page],
             })
         };
     }
@@ -212,7 +197,7 @@ export default class Telegram
         this._inlineKeyboardButtons[pageNumber][layer].push({text: name, callback_data: callback_data, request_contact: request_contact, request_location: request_location});
     }
 
-    private static _addKeyboardButtons(pageId: string | number, layer: number = 0, name: string = 'Button', request_contact?: boolean, request_location?: boolean)
+    private static _addKeyboardButtons(pageId: string | number, layer: number = 0, name: string = 'Button', request_contact?: boolean, request_location?: boolean, web_app?: any)
     {
         if(this.isKeyboardButton(pageId) === false)
             this._keyboardPageId.push(pageId);
@@ -238,7 +223,7 @@ export default class Telegram
             this._keyboardButtons[pageNumber][layer] = new Array();
         }
 
-        this._keyboardButtons[pageNumber][layer].push({text: name, request_contact: request_contact, request_location: request_location});
+        this._keyboardButtons[pageNumber][layer].push({text: name, request_contact: request_contact, request_location: request_location, web_app});
     }
 }
 

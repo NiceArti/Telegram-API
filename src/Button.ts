@@ -7,7 +7,7 @@ interface IButtonRequests {
 
 interface IButton
 {
-    click(fn: (msg: any) => void);
+    click(fn: (msg: any) => void): void;
 }
 
 abstract class Button implements IButton
@@ -21,7 +21,7 @@ abstract class Button implements IButton
         this._name = name;
     }
 
-    public click(fn: (msg: any) => void){}
+    public click(fn: (msg: any) => void): void{}
 }
 
 export class KeyboardButton extends Button
